@@ -54,10 +54,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         physicsWorld.gravity = CGVector(dx: 0, dy: -2)
         physicsWorld.contactDelegate = self
+        
+        motionManager.accelerometerUpdateInterval = 0.2
+        motionManager.startAccelerometerUpdates(to: OperationQueue.current!) { (data: CMAccelerometerData?, error: Error?) in
+            if let accelerometerData = data {
+                let acceleration = accelerometerData.acceleration
+                self.xAcceleration = (CGFloat(acceleration.x) * 0.75 + (self.xAcceleration * 0.25))
+            }
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func didSimulatePhysics() {
+        player.physicsBody?.velocity = CGVector(dx: xAcceleration * 400, dy: player.physicsBody!.velocity.dy)
+        
+        if player.position.x < -20 {
+            player.position = CGPoint(x: self.size.width + 20, y: player.position.y)
+        } else if (player.position.x > self.size.width + 20) {
+            player.position = CGPoint(x: -20, y: player.position.y)
+        }
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -69,7 +87,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             otherNode = contact.bodyB.node
         }
         
-        (otherNode as! GenericNode).collisionWithPlayer(player: player)
+        _ = (otherNode as! GenericNode).collisionWithPlayer(player: player)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
