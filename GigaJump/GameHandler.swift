@@ -31,6 +31,12 @@ class GameHandler {
         let userDefaults = UserDefaults.standard
         highScore = userDefaults.integer(forKey: "highScore")
         flowers = userDefaults.integer(forKey: "flowers")
+        
+        if let path = Bundle.main.path(forResource: "Level01", ofType: "plist") {
+            if let level = NSDictionary(contentsOfFile: path) {
+                levelData = level
+            }
+        }
     }
     
     func saveGameStats() {

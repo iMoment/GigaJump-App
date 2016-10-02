@@ -34,6 +34,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         backgroundColor = SKColor.white
         scaleFactor = self.size.width / 320
         
+        let levelData = GameHandler.sharedInstance.levelData!
+        
         background = createBackground()
         addChild(background)
         
@@ -46,8 +48,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player = createPlayer()
         foreground.addChild(player)
         
-        let platform = createPlatformAtPosition(position: CGPoint(x: 160, y: 320), ofType: PlatformType.normalBrick)
-        foreground.addChild(platform)
+//        let platform = createPlatformAtPosition(position: CGPoint(x: 160, y: 320), ofType: PlatformType.normalBrick)
+//        foreground.addChild(platform)
+        
+        let platforms = levelData["Platforms"] as! NSDictionary
+        let platformPatterns = platforms["Patterns"] as! NSDictionary
+        let platformPositions = platforms["Positions"] as! [NSDictionary]
+        
+        for platformPosition in platformPositions {
+            let x = (platformPosition["x"] as AnyObject).floatValue
+            let y = (platformPosition["y"] as AnyObject).floatValue
+            let pattern = platformPosition["pattern"] as! NSString
+            
+            let platformPattern = platformPatterns[pattern] as! [NSDictionary]
+            for platformPoint in platformPattern {
+                let xValue = (platformPoint["x"] as AnyObject).floatValue
+                let yValue = (platformPoint["y"] as AnyObject).floatValue
+                let type = PlatformType(rawValue: (platformPoint["type"] as AnyObject).integerValue)
+                let xPosition = CGFloat(xValue! + x!)
+                let yPosition = CGFloat(yValue! + y!)
+                
+                let platformNode = createPlatformAtPosition(position: CGPoint(x: xPosition, y: yPosition), ofType: type!)
+                foreground.addChild(platformNode)
+            }
+        }
         
         let flower = createFlowerAtPosition(position: CGPoint(x: 160, y: 220), ofType: FlowerType.specialFlower)
         foreground.addChild(flower)
