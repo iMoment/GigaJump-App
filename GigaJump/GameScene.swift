@@ -45,6 +45,12 @@ class GameScene: SKScene {
         
         player = createPlayer()
         foreground.addChild(player)
+        
+        let platform = createPlatformAtPosition(position: CGPoint(x: 160, y: 320), ofType: PlatformType.normalBrick)
+        foreground.addChild(platform)
+        
+        let flower = createFlowerAtPosition(position: CGPoint(x: 160, y: 220), ofType: FlowerType.specialFlower)
+        foreground.addChild(flower)
     }
     
     required init?(coder aDecoder: NSCoder) {
