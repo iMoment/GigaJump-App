@@ -40,7 +40,11 @@ class GameScene: SKScene {
         midground = createMidground()
         addChild(midground)
         
+        foreground = SKNode()
+        addChild(foreground)
         
+        player = createPlayer()
+        foreground.addChild(player)
     }
     
     required init?(coder aDecoder: NSCoder) {

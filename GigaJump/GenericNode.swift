@@ -15,7 +15,10 @@ struct CollisionBitMask {
     static let Brick: UInt32 = 0x02
 }
 
-
+enum PlatformType: Int {
+    case normalBrick = 0
+    case breakableBrick = 1
+}
 
 class GenericNode: SKNode {
     
