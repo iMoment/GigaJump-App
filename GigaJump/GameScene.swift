@@ -32,6 +32,9 @@ class GameScene: SKScene {
     override init(size: CGSize) {
         super.init(size: size)
         backgroundColor = SKColor.white
+        scaleFactor = self.size.width / 320
+        
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
