@@ -48,33 +48,49 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player = createPlayer()
         foreground.addChild(player)
         
-//        let platform = createPlatformAtPosition(position: CGPoint(x: 160, y: 320), ofType: PlatformType.normalBrick)
-//        foreground.addChild(platform)
-        
         let platforms = levelData["Platforms"] as! NSDictionary
         let platformPatterns = platforms["Patterns"] as! NSDictionary
         let platformPositions = platforms["Positions"] as! [NSDictionary]
         
         for platformPosition in platformPositions {
-            let x = (platformPosition["x"] as AnyObject).floatValue
-            let y = (platformPosition["y"] as AnyObject).floatValue
+            let x = platformPosition["x"] as! Float
+            let y = platformPosition["y"] as! Float
             let pattern = platformPosition["pattern"] as! NSString
             
             let platformPattern = platformPatterns[pattern] as! [NSDictionary]
             for platformPoint in platformPattern {
-                let xValue = (platformPoint["x"] as AnyObject).floatValue
-                let yValue = (platformPoint["y"] as AnyObject).floatValue
-                let type = PlatformType(rawValue: (platformPoint["type"] as AnyObject).integerValue)
-                let xPosition = CGFloat(xValue! + x!)
-                let yPosition = CGFloat(yValue! + y!)
+                let xValue = platformPoint["x"] as! Float
+                let yValue = platformPoint["y"] as! Float
+                let type = PlatformType(rawValue: platformPoint["type"] as! Int)
+                let xPosition = CGFloat(xValue + x)
+                let yPosition = CGFloat(yValue + y)
                 
                 let platformNode = createPlatformAtPosition(position: CGPoint(x: xPosition, y: yPosition), ofType: type!)
                 foreground.addChild(platformNode)
             }
         }
+       
+        let flowers = levelData["Flowers"] as! NSDictionary
+        let flowerPatterns = flowers["Patterns"] as! NSDictionary
+        let flowerPositions = flowers["Positions"] as! [NSDictionary]
         
-        let flower = createFlowerAtPosition(position: CGPoint(x: 160, y: 220), ofType: FlowerType.specialFlower)
-        foreground.addChild(flower)
+        for flowerPosition in flowerPositions {
+            let x = flowerPosition["x"] as! Float
+            let y = flowerPosition["y"] as! Float
+            let pattern = flowerPosition["pattern"] as! NSString
+            
+            let flowerPattern = flowerPatterns[pattern] as! [NSDictionary]
+            for flowerPoint in flowerPattern {
+                let xValue = flowerPoint["x"] as! Float
+                let yValue = flowerPoint["y"] as! Float
+                let type = FlowerType(rawValue: flowerPoint["type"] as! Int)
+                let xPosition = CGFloat(xValue + x)
+                let yPosition = CGFloat(yValue + y)
+                
+                let flowerNode = createFlowerAtPosition(position: CGPoint(x: xPosition, y: yPosition), ofType: type!)
+                foreground.addChild(flowerNode)
+            }
+        }
         
         physicsWorld.gravity = CGVector(dx: 0, dy: -2)
         physicsWorld.contactDelegate = self
