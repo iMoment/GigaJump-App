@@ -152,6 +152,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
+        
+        var updateHUD = false
         var otherNode: SKNode!
         
         if contact.bodyA.node != player {
@@ -160,7 +162,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             otherNode = contact.bodyB.node
         }
         
-        _ = (otherNode as! GenericNode).collisionWithPlayer(player: player)
+        updateHUD = (otherNode as! GenericNode).collisionWithPlayer(player: player)
+        
+        if updateHUD {
+            flowerLabel.text = "  \(GameHandler.sharedInstance.flowers)"
+            scoreLabel.text = "\(GameHandler.sharedInstance.score)"
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -175,6 +182,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func update(_ currentTime: TimeInterval) {
+        
+        if gameOver {
+            return
+        }
         
         foreground.enumerateChildNodes(withName: "PLATFORMNODE") { (node, stop) in
             let platform = node as! PlatformNode
@@ -191,6 +202,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             midground.position = CGPoint(x: 0, y: -((player.position.y - 200) / 4))
             foreground.position = CGPoint(x: 0, y: -((player.position.y - 200)))
         }
+        
+        if Int(player.position.y) > currentMaxY {
+            GameHandler.sharedInstance.score += Int(player.position.y) - currentMaxY
+            currentMaxY = Int(player.position.y)
+            scoreLabel.text = "\(GameHandler.sharedInstance.score)"
+        }
+        
+        if Int(player.position.y) > endOfGamePosition {
+            endGame()
+        }
+        
+        if Int(player.position.y) < currentMaxY - 800 {
+            endGame()
+        }
+    }
+    
+    func endGame() {
+        gameOver = true
+        GameHandler.sharedInstance.saveGameStats()
+        
+        let transition = SKTransition.fade(withDuration: 0.5)
+        let endGameScene = EndGame(size: self.size)
+        self.view?.presentScene(endGameScene, transition: transition)
     }
 }
 

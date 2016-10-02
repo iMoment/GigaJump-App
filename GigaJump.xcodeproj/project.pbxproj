@@ -10,6 +10,7 @@
 		915316031DA10D2700D11B9E /* PlatformNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915316021DA10D2700D11B9E /* PlatformNode.swift */; };
 		915316051DA10FF300D11B9E /* FlowerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915316041DA10FF300D11B9E /* FlowerNode.swift */; };
 		915316071DA1236400D11B9E /* GameHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915316061DA1236400D11B9E /* GameHandler.swift */; };
+		917C2B101DA1729D00A4B14E /* EndGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917C2B0F1DA1729D00A4B14E /* EndGame.swift */; };
 		91EBB6BB1DA0C67E00994FF0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EBB6BA1DA0C67E00994FF0 /* AppDelegate.swift */; };
 		91EBB6BF1DA0C67E00994FF0 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 91EBB6BE1DA0C67E00994FF0 /* Actions.sks */; };
 		91EBB6C11DA0C67E00994FF0 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EBB6C01DA0C67E00994FF0 /* GameScene.swift */; };
@@ -68,6 +69,7 @@
 		915316021DA10D2700D11B9E /* PlatformNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlatformNode.swift; sourceTree = "<group>"; };
 		915316041DA10FF300D11B9E /* FlowerNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowerNode.swift; sourceTree = "<group>"; };
 		915316061DA1236400D11B9E /* GameHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameHandler.swift; sourceTree = "<group>"; };
+		917C2B0F1DA1729D00A4B14E /* EndGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndGame.swift; sourceTree = "<group>"; };
 		91EBB6B71DA0C67E00994FF0 /* GigaJump.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GigaJump.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91EBB6BA1DA0C67E00994FF0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		91EBB6BE1DA0C67E00994FF0 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				915316061DA1236400D11B9E /* GameHandler.swift */,
 				91EBB6BE1DA0C67E00994FF0 /* Actions.sks */,
 				91EBB6C01DA0C67E00994FF0 /* GameScene.swift */,
+				917C2B0F1DA1729D00A4B14E /* EndGame.swift */,
 				91EBB7291DA0CB8D00994FF0 /* GameElements.swift */,
 				91EBB6C21DA0C67E00994FF0 /* GameViewController.swift */,
 				915316041DA10FF300D11B9E /* FlowerNode.swift */,
@@ -339,6 +342,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				917C2B101DA1729D00A4B14E /* EndGame.swift in Sources */,
 				91EBB72A1DA0CB8D00994FF0 /* GameElements.swift in Sources */,
 				91EBB6C11DA0C67E00994FF0 /* GameScene.swift in Sources */,
 				91EBB6C31DA0C67E00994FF0 /* GameViewController.swift in Sources */,
