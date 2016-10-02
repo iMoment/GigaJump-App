@@ -47,12 +47,30 @@ extension GameScene {
             
             let cloudNode = SKSpriteNode(imageNamed: name)
             cloudNode.anchorPoint = anchor
-            cloudNode.position = CGPoint(x: xPosition, y: 500 + CGFloat(index))
+            cloudNode.position = CGPoint(x: xPosition, y: 500 * CGFloat(index))
             
             midgroundNode.addChild(cloudNode)
         }
         
         return midgroundNode
+    }
+    
+    func createPlayer() -> SKNode {
+        let playerNode = SKNode()
+        playerNode.position = CGPoint(x: self.size.width / 2, y: 80)
+        
+        let sprite = SKSpriteNode(imageNamed: "Player")
+        playerNode.addChild(sprite)
+        playerNode.physicsBody = SKPhysicsBody(circleOfRadius: sprite.size.width / 2)
+        playerNode.physicsBody?.isDynamic = true
+        playerNode.physicsBody?.allowsRotation = false
+        playerNode.physicsBody?.restitution = 1
+        playerNode.physicsBody?.friction = 0
+        playerNode.physicsBody?.angularDamping = 0
+        playerNode.physicsBody?.linearDamping = 0
+        playerNode.physicsBody?.usesPreciseCollisionDetection = true
+        
+        return playerNode
     }
 }
 

@@ -37,6 +37,9 @@ class GameScene: SKScene {
         background = createBackground()
         addChild(background)
         
+        midground = createMidground()
+        addChild(midground)
+        
         
     }
     
