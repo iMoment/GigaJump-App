@@ -29,12 +29,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var playersMaxYValue: Int!
     var gameOver = false
     
+    var currentMaxY: Int!
+    
     override init(size: CGSize) {
         super.init(size: size)
         backgroundColor = SKColor.white
-        scaleFactor = self.size.width / 320
-        
         let levelData = GameHandler.sharedInstance.levelData!
+        currentMaxY = 80
+        GameHandler.sharedInstance.score = 0
+        gameOver = false
+        endOfGamePosition = levelData["EndOfLevel"] as! Int
+        
+        scaleFactor = self.size.width / 320
         
         background = createBackground()
         addChild(background)
@@ -44,6 +50,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         foreground = SKNode()
         addChild(foreground)
+        
+        hud = SKNode()
+        addChild(hud)
+        startButton.position = CGPoint(x: self.size.width / 2, y: 180)
+        hud.addChild(startButton)
         
         player = createPlayer()
         foreground.addChild(player)
@@ -131,6 +142,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        if (player.physicsBody?.isDynamic)! {
+            return
+        }
+        
+        startButton.removeFromParent()
         player.physicsBody?.isDynamic = true
         player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 20))
     }
