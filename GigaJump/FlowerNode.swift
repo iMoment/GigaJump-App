@@ -15,4 +15,10 @@ enum FlowerType: Int {
 
 class FlowerNode: GenericNode {
     var flowerType: FlowerType!
+    
+    override func collisionWithPlayer(player: SKNode) -> Bool {
+        player.physicsBody?.velocity = CGVector(dx: player.physicsBody!.velocity.dx, dy: 400)
+        self.removeFromParent()
+        return true
+    }
 }

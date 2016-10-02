@@ -10,7 +10,7 @@ import SpriteKit
 import GameplayKit
 import CoreMotion
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var background: SKNode!
     var midground: SKNode!
@@ -51,18 +51,44 @@ class GameScene: SKScene {
         
         let flower = createFlowerAtPosition(position: CGPoint(x: 160, y: 220), ofType: FlowerType.specialFlower)
         foreground.addChild(flower)
+        
+        physicsWorld.gravity = CGVector(dx: 0, dy: -2)
+        physicsWorld.contactDelegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func didBegin(_ contact: SKPhysicsContact) {
+        var otherNode: SKNode!
+        
+        if contact.bodyA.node != player {
+            otherNode = contact.bodyA.node
+        } else {
+            otherNode = contact.bodyB.node
+        }
+        
+        (otherNode as! GenericNode).collisionWithPlayer(player: player)
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
+        player.physicsBody?.isDynamic = true
+        player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 20))
     }
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
     }
 }
+
+
+
+
+
+
+
+
+
+
+
