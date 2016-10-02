@@ -56,6 +56,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         startButton.position = CGPoint(x: self.size.width / 2, y: 180)
         hud.addChild(startButton)
         
+        let flower = SKSpriteNode(imageNamed: "flower")
+        flower.position = CGPoint(x: 25, y: self.size.height - 30)
+        hud.addChild(flower)
+        
+        flowerLabel = SKLabelNode(fontNamed: "AmericanTypewriter-Bold")
+        flowerLabel.fontSize = 30
+        flowerLabel.fontColor = SKColor.white
+        flowerLabel.position = CGPoint(x: 50, y: self.size.height - 40)
+        flowerLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
+        
+        flowerLabel.text = "  \(GameHandler.sharedInstance.flowers)"
+        hud.addChild(flowerLabel)
+        
+        scoreLabel = SKLabelNode(fontNamed: "AmericanTypewriter-Bold")
+        scoreLabel.fontSize = 30
+        scoreLabel.fontColor = SKColor.white
+        scoreLabel.position = CGPoint(x: self.size.width - 20, y: self.size.height - 40)
+        scoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.right
+        
+        scoreLabel.text = "0"
+        hud.addChild(scoreLabel)
+        
         player = createPlayer()
         foreground.addChild(player)
         
