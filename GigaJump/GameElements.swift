@@ -25,4 +25,41 @@ extension GameScene {
         
         return backgroundNode
     }
+    
+    func createMidground() -> SKNode {
+        let midgroundNode = SKNode()
+        var anchor: CGPoint!
+        var xPosition: CGFloat!
+        
+        for index in 0...9 {
+            var name: String
+            let randomNumber = arc4random() % 2
+            
+            if randomNumber > 0 {
+                name = "cloudLeft"
+                anchor = CGPoint(x: 0, y: 0.5)
+                xPosition = 0
+            } else {
+                name = "cloudRight"
+                anchor = CGPoint(x: 1, y: 0.5)
+                xPosition = self.size.width
+            }
+            
+            let cloudNode = SKSpriteNode(imageNamed: name)
+            cloudNode.anchorPoint = anchor
+            cloudNode.position = CGPoint(x: xPosition, y: 500 + CGFloat(index))
+            
+            midgroundNode.addChild(cloudNode)
+        }
+        
+        return midgroundNode
+    }
 }
+
+
+
+
+
+
+
+

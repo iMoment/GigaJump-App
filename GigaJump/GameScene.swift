@@ -34,6 +34,9 @@ class GameScene: SKScene {
         backgroundColor = SKColor.white
         scaleFactor = self.size.width / 320
         
+        background = createBackground()
+        addChild(background)
+        
         
     }
     
